@@ -4,24 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>โรงพยาบาลส่งเสริมสุขภาพตำบลคลองน้อย</title>
-    <!-- นำเข้าฟอนต์ Prompt จาก Google Fonts เพื่อความสวยงามภาษาไทย -->
+    <!-- ฟอนต์ภาษาไทย -->
     <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
-        /* ตั้งค่าตัวแปรสีและค่าพื้นฐาน (CSS Variables) */
+        /* --- CSS Variables & Reset --- */
         :root {
-            --primary-color: #009688; /* เขียวเข้มสุขภาพ */
-            --secondary-color: #4DB6AC; /* เขียวอ่อน */
-            --accent-color: #E0F2F1; /* พื้นหลังอ่อน */
+            --primary-color: #009688;
+            --secondary-color: #4DB6AC;
+            --accent-color: #E0F2F1;
             --text-dark: #333333;
             --text-light: #666666;
             --white: #ffffff;
             --shadow: 0 4px 6px rgba(0,0,0,0.1);
-            --radius: 8px;
+            --radius: 12px;
             --max-width: 1200px;
+            --header-height: 70px;
         }
 
-        /* รีเซ็ตค่าพื้นฐาน */
         * {
             margin: 0;
             padding: 0;
@@ -37,43 +37,44 @@
             color: var(--text-dark);
             line-height: 1.6;
             background-color: #f9f9f9;
+            padding-top: var(--header-height); /* ห้ามเนื้อหาซ้อน Header */
         }
 
-        /* Navigation Bar */
+        /* --- Header & Navigation --- */
         header {
             background-color: var(--white);
             box-shadow: var(--shadow);
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
             z-index: 1000;
         }
 
         nav {
             max-width: var(--max-width);
+            height: 100%;
             margin: 0 auto;
-            padding: 1rem 2rem;
+            padding: 0 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 600;
             color: var(--primary-color);
             display: flex;
             align-items: center;
             gap: 10px;
-        }
-
-        .logo span {
-            color: var(--text-dark);
-            font-size: 1.2rem;
+            white-space: nowrap; /* ไม่ให้ชื่อขึ้นบรรทัดใหม่ */
         }
 
         .nav-links {
             display: flex;
-            gap: 20px;
+            gap: 30px;
             list-style: none;
         }
 
@@ -82,24 +83,29 @@
             color: var(--text-dark);
             font-weight: 500;
             transition: color 0.3s;
+            font-size: 1rem;
         }
 
         .nav-links a:hover {
             color: var(--primary-color);
         }
 
+        /* ปุ่มเมนูมือถือ (ซ่อนบน PC) */
         .menu-toggle {
             display: none;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             cursor: pointer;
+            color: var(--primary-color);
         }
 
-        /* Hero Section */
+        /* --- Hero Section --- */
         #home {
             position: relative;
-            height: 80vh;
+            /* ปรับความสูงให้เหมาะกับมือถือและคอม */
+            height: calc(100vh - var(--header-height)); 
             min-height: 500px;
-            background: linear-gradient(rgba(0, 150, 136, 0.8), rgba(0, 77, 64, 0.8)), url('https://picsum.photos/seed/hospital/1920/1080.jpg');
+            max-height: 800px;
+            background: linear-gradient(rgba(0, 150, 136, 0.85), rgba(0, 77, 64, 0.85)), url('https://picsum.photos/seed/hospital/1920/1080.jpg');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -107,31 +113,35 @@
             justify-content: center;
             text-align: center;
             color: var(--white);
-            padding: 0 20px;
+            padding: 20px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            width: 100%;
         }
 
         .hero-content h1 {
-            font-size: 3rem;
+            font-size: clamp(2rem, 5vw, 3.5rem); /* ปรับขนาดอัตโนมัติตามหน้าจอ */
             margin-bottom: 1rem;
+            line-height: 1.2;
             text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
 
         .hero-content p {
-            font-size: 1.25rem;
+            font-size: clamp(1rem, 2vw, 1.25rem);
             margin-bottom: 2rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         .btn {
             display: inline-block;
-            padding: 12px 30px;
+            padding: 12px 35px;
             background-color: var(--white);
             color: var(--primary-color);
             text-decoration: none;
             border-radius: 50px;
             font-weight: 600;
+            font-size: 1.1rem;
             transition: transform 0.2s, box-shadow 0.2s;
         }
 
@@ -140,9 +150,9 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
-        /* Section Styles */
+        /* --- Generic Section --- */
         section {
-            padding: 80px 20px;
+            padding: 60px 20px;
         }
 
         .container {
@@ -156,20 +166,21 @@
         }
 
         .section-title h2 {
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
             color: var(--primary-color);
             margin-bottom: 0.5rem;
         }
 
-        /* Info Section (บริการที่เหลือ) */
+        /* --- Services Grid (Responsive) --- */
         #info {
             background-color: var(--white);
         }
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            /* ปรับอัตโนมัติ: ขั้นต่ำ 260px หากพอก็เต็มจอ */
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
         }
 
         .service-card {
@@ -185,13 +196,13 @@
         }
 
         .icon-box {
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
-            color: var(--primary-color);
         }
 
         .service-card h3 {
             margin-bottom: 1rem;
+            font-size: 1.25rem;
         }
 
         .hours-box {
@@ -203,14 +214,14 @@
             text-align: center;
         }
 
-        /* Personnel Section */
+        /* --- Personnel Grid (Responsive) --- */
         #personnel {
             background-color: #f4f4f4;
         }
 
         .personnel-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 30px;
         }
 
@@ -224,7 +235,7 @@
 
         .person-img {
             width: 100%;
-            height: 200px;
+            height: 250px; /* ความสูงคงที่เพื่อความสวยงาม */
             object-fit: cover;
             background-color: #ddd;
         }
@@ -241,25 +252,21 @@
             display: block;
         }
 
-        .person-name {
-            font-size: 1.2rem;
-            font-weight: 500;
-        }
-
-        /* Contact Section */
+        /* --- Contact Section (Responsive) --- */
         #contact {
             background-color: var(--white);
         }
 
         .contact-container {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1.5fr; /* แผนที่ใหญ่กว่าข้อมูลคนละหน่อยบนจอใหญ่ */
             gap: 40px;
         }
 
         .contact-info h3 {
             margin-bottom: 1.5rem;
             color: var(--primary-color);
+            font-size: 1.5rem;
         }
 
         .info-item {
@@ -271,17 +278,17 @@
 
         .info-icon {
             color: var(--primary-color);
-            font-size: 1.2rem;
-            margin-top: 3px;
+            font-size: 1.4rem;
+            min-width: 24px;
         }
 
         .map-container {
             width: 100%;
-            height: 350px;
+            height: 400px;
             background-color: #eee;
             border-radius: var(--radius);
             overflow: hidden;
-            position: relative;
+            box-shadow: var(--shadow);
         }
         
         .map-container iframe {
@@ -290,7 +297,7 @@
             border: 0;
         }
 
-        /* Footer */
+        /* --- Footer --- */
         footer {
             background-color: #263238;
             color: #ccc;
@@ -299,76 +306,94 @@
             font-size: 0.9rem;
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background: var(--white);
-                padding: 1rem;
-                box-shadow: var(--shadow);
-                text-align: center;
+        /* --- RESPONSIVE MEDIA QUERIES --- */
+        
+        /* Tablet & Mobile (หน้าจอน้อยกว่า 900px) */
+        @media (max-width: 900px) {
+            .contact-container {
+                grid-template-columns: 1fr; /* เรียงแนวตั้ง */
             }
-            
-            nav:hover .nav-links {
-                display: flex;
+            .map-container {
+                height: 300px;
+                order: -1; /* ย้ายแผนที่ขึ้นด้านบนหรือลงด้านล่างตามชอบ */
             }
+        }
 
+        /* Mobile (หน้าจอน้อยกว่า 768px - เช่น มือถือ, iPad Mini แนวตั้ง) */
+        @media (max-width: 768px) {
             .menu-toggle {
                 display: block;
+                z-index: 1001;
             }
 
-            .hero-content h1 {
-                font-size: 2rem;
+            /* ปรับเมนูให้เป็น Overlay เต็มจอ */
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%; /* ซ่อนไว้ขวาสุด */
+                width: 70%;
+                height: 100vh;
+                background-color: var(--white);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+                transition: right 0.3s ease-in-out;
+                padding-top: 60px;
             }
 
-            .contact-container {
-                grid-template-columns: 1fr;
+            /* คลาสสำหรับเปิดเมนู (จะถูกเติมด้วย JS) */
+            .nav-links.active {
+                right: 0;
+            }
+
+            /* ปรับขนาดการ์ดเล็กลงเมื่อจอเล็กมากๆ */
+            .services-grid, .personnel-grid {
+                grid-template-columns: 1fr; /* แสดงเพียง 1 คอลัมน์บนมือถือ */
+            }
+            
+            section {
+                padding: 50px 15px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigation Bar -->
+    <!-- Header -->
     <header>
         <nav>
             <div class="logo">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v12m-6-6h12" stroke="currentColor" stroke-width="4"/></svg>
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6v12m-6-6h12" stroke="currentColor"/></svg>
                 รพ.สต. คลองน้อย
             </div>
-            <ul class="nav-links">
-                <li><a href="#home">หน้าหลัก</a></li>
-                <li><a href="#info">ข้อมูลและบริการ</a></li>
-                <li><a href="#personnel">บุคลากร</a></li>
-                <li><a href="#contact">ติดต่อเรา</a></li>
+            <!-- ปุ่มกดเมนูมือถือ -->
+            <div class="menu-toggle" id="mobile-menu">☰</div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#home" onclick="closeMenu()">หน้าหลัก</a></li>
+                <li><a href="#info" onclick="closeMenu()">ข้อมูลและบริการ</a></li>
+                <li><a href="#personnel" onclick="closeMenu()">บุคลากร</a></li>
+                <li><a href="#contact" onclick="closeMenu()">ติดต่อเรา</a></li>
             </ul>
-            <div class="menu-toggle">☰</div>
         </nav>
     </header>
 
-    <!-- Main Content -->
     <main>
-        
-        <!-- Home / Hero Section -->
+        <!-- Hero Section -->
         <section id="home">
             <div class="hero-content">
-                <h1>โรงพยาบาลส่งเสริมสุขภาพตำบลคลองน้อย</h1>
-                <p>พร้อมให้บริการด้านการแพทย์และสาธารณสุข อำเภอบ้านแพรก จังหวัดพระนครศรีอยุธยา<br>ด้วยหัวใจคือการดูแลประชาชนเป็นหลัก</p>
+                <h1>โรงพยาบาลส่งเสริมสุขภาพ<br>ตำบลคลองน้อย</h1>
+                <p>พร้อมให้บริการด้านการแพทย์และสาธารณสุข อำเภอบ้านแพรก จังหวัดพระนครศรีอยุธยา ด้วยหัวใจคือการดูแลประชาชนเป็นหลัก</p>
                 <a href="#contact" class="btn">ติดต่อสอบถาม</a>
             </div>
         </section>
 
-        <!-- Info & Services Section (แก้ไขแล้ว) -->
+        <!-- Info & Services Section -->
         <section id="info">
             <div class="container">
                 <div class="section-title">
                     <h2>ข้อมูลและบริการ</h2>
-                    <p>บริการสุขภาพครบวงจรใกล้บ้านคุณ</p>
+                    <p>บริการสุขภาพที่ครบถ้วน ใกล้บ้านคุณ</p>
                 </div>
 
                 <div class="services-grid">
@@ -376,7 +401,7 @@
                     <div class="service-card">
                         <div class="icon-box">💊</div>
                         <h3>บริการจ่ายยา</h3>
-                        <p>มียาจำเป็นหลัก (E-Demand) ครบถ้วน พร้อมคำแนะนำการใช้ยาอย่างถูกต้อง</p>
+                        <p>มียาจำเป็นหลัก (E-Demand) ครบถ้วน พร้อมคำแนะนำการใช้ยาอย่างถูกต้องโดยเภสัชกร</p>
                     </div>
                     
                     <!-- พัฒนาเด็ก -->
@@ -404,7 +429,7 @@
                 <div class="hours-box">
                     <h3>🕒 วันและเวลาทำการ</h3>
                     <p>ทำการทุกวันจันทร์ - ศุกร์ | เวลา 08:30 - 16:30 น.</p>
-                    <p style="font-size: 0.9rem; margin-top: 10px;">*ยามฉุกเฉินหรือนอกเวลาทำการ โปรดติดต่อหมายเลขฉุกเฉิน 1669</p>
+                    <p style="font-size: 0.9rem; margin-top: 10px;">*ยามฉุกเฉินหรือนอกเวลาทำการ โปรดติดต่อหมายเลข 1669</p>
                 </div>
             </div>
         </section>
@@ -419,7 +444,7 @@
 
                 <div class="personnel-grid">
                     <div class="person-card">
-                        <img src="https://picsum.photos/seed/doc1/300/300" alt="ผู้อำนวยการ" class="person-img">
+                        <img src="https://picsum.photos/seed/doc1/300/350" alt="ผู้อำนวยการ" class="person-img">
                         <div class="person-info">
                             <span class="person-role">ผู้อำนวยการ รพ.สต.</span>
                             <h3 class="person-name">นพ. สมชาย ใจดี</h3>
@@ -427,15 +452,15 @@
                     </div>
 
                     <div class="person-card">
-                        <img src="https://picsum.photos/seed/nurse1/300/300" alt="พยาบาล" class="person-img">
+                        <img src="https://picsum.photos/seed/nurse1/300/350" alt="พยาบาล" class="person-img">
                         <div class="person-info">
-                            <span class="person-role">พยาบาลวิชาชีพชำนาญงาน</span>
+                            <span class="person-role">พยาบาลวิชาชีพ</span>
                             <h3 class="person-name">พย.บ. สมหญิง รักษ์ไทย</h3>
                         </div>
                     </div>
 
                     <div class="person-card">
-                        <img src="https://picsum.photos/seed/pub1/300/300" alt="นักวิชาการสาธารณสุข" class="person-img">
+                        <img src="https://picsum.photos/seed/pub1/300/350" alt="นักวิชาการสาธารณสุข" class="person-img">
                         <div class="person-info">
                             <span class="person-role">นักวิชาการสาธารณสุข</span>
                             <h3 class="person-name">สาธารณสุขอ. วิชัย ขยัน</h3>
@@ -443,7 +468,7 @@
                     </div>
 
                     <div class="person-card">
-                        <img src="https://picsum.photos/seed/tcm1/300/300" alt="แพทย์แผนไทย" class="person-img">
+                        <img src="https://picsum.photos/seed/tcm1/300/350" alt="แพทย์แผนไทย" class="person-img">
                         <div class="person-info">
                             <span class="person-role">ผู้เชี่ยวชาญการแพทย์แผนไทย</span>
                             <h3 class="person-name">พย.บ. มานี มีตา</h3>
@@ -494,6 +519,7 @@
                     </div>
 
                     <div class="map-container">
+                        <!-- สามารถเปลี่ยน src เป็น iframe ของ Google Maps ตำแหน่งจริงได้ -->
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3897.562912345678!2d100.5!3d14.2!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTTCsDEyJzAwLjAiTiAxMDDwMzAnMDAuMCJF!5e0!3m2!1sen!2sth!4v1600000000000!5m2!1sen!2sth" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
@@ -502,11 +528,34 @@
 
     </main>
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2023 โรงพยาบาลส่งเสริมสุขภาพตำบลคลองน้อย อำเภอบ้านแพรก จังหวัดพระนครศรีอยุธยา</p>
-        <p style="font-size: 0.8rem; margin-top: 10px; opacity: 0.7;">พัฒนาเพื่อการบริการสาธารณะ</p>
     </footer>
 
+    <!-- Script สำหรับการทำงานเมนูบนมือถือ -->
+    <script>
+        const menuToggle = document.getElementById('mobile-menu');
+        const navLinks = document.getElementById('nav-links');
+
+        // ฟังก์ชันเปิด/ปิดเมนู
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            
+            // เปลี่ยนไอคอนเมื่อกด
+            if(navLinks.classList.contains('active')) {
+                menuToggle.textContent = '✕'; // เปลี่ยนเป็นกากบาท
+            } else {
+                menuToggle.textContent = '☰'; // เปลี่ยนเป็นขีด
+            }
+        });
+
+        // ฟังก์ชันปิดเมนูเมื่อกดลิงก์ (เพื่อให้หน้าจอไม่บังเนื้อหา)
+        function closeMenu() {
+            if (window.innerWidth <= 768) {
+                navLinks.classList.remove('active');
+                menuToggle.textContent = '☰';
+            }
+        }
+    </script>
 </body>
 </html>
