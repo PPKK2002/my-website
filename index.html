@@ -40,6 +40,10 @@
             padding-top: var(--header-height);
         }
 
+        /* --- Utility Classes for JS View Switching --- */
+        .hidden { display: none !important; }
+        .block { display: block !important; }
+
         /* --- Header --- */
         header {
             background-color: rgba(255, 255, 255, 0.98);
@@ -69,6 +73,7 @@
             align-items: center;
             gap: 10px;
             text-decoration: none;
+            cursor: pointer;
         }
 
         .nav-links {
@@ -83,6 +88,7 @@
             font-weight: 500;
             font-size: 1rem;
             transition: color 0.3s;
+            cursor: pointer;
         }
 
         .nav-links a:hover { color: var(--primary-color); }
@@ -121,6 +127,7 @@
             font-size: 1.05rem;
             transition: transform 0.2s;
             box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            cursor: pointer;
         }
         
         .btn-hero:hover { transform: translateY(-3px); }
@@ -150,13 +157,20 @@
         }
         .service-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
         .service-card h3 { font-size: 1.25rem; margin-bottom: 0.8rem; color: var(--text-dark); }
-        .service-card p { color: var(--text-gray); font-size: 0.95rem; margin-bottom: 0; flex-grow: 1; } /* เอา margin-bottom ของ p ออก เพราะไม่มี link แล้ว */
+        .service-card p { color: var(--text-gray); font-size: 0.95rem; margin-bottom: 0; flex-grow: 1; }
 
         /* --- Articles --- */
         #articles { background-color: var(--gray-light); }
         .article-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
-        .article-card { background: var(--white); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
-        .article-card:hover { transform: translateY(-3px); }
+        .article-card { 
+            background: var(--white); 
+            border-radius: var(--radius-lg); 
+            overflow: hidden; 
+            box-shadow: var(--shadow-sm); 
+            cursor: pointer; /* บอกให้รู้ว่ากดได้ */
+            transition: transform 0.2s;
+        }
+        .article-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
         .article-img { width: 100%; height: 160px; object-fit: cover; }
         .article-content { padding: 1.25rem; }
         .article-tag { font-size: 0.75rem; color: var(--primary-color); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
@@ -226,6 +240,63 @@
         /* --- Footer --- */
         footer { background-color: #1F2937; color: #D1D5DB; padding: 2rem 20px; text-align: center; font-size: 0.9rem; }
 
+        /* --- Article Detail View (New Section) --- */
+        #article-detail-view {
+            min-height: 80vh;
+            background-color: #F9FAFB;
+            padding: 120px 20px 60px;
+        }
+
+        .article-detail-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background-color: var(--gray-light);
+            color: var(--text-dark);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .back-btn:hover { background-color: #e5e7eb; }
+
+        .detail-header { margin-bottom: 30px; text-align: center; }
+        .detail-tag { 
+            background: var(--primary-bg); 
+            color: var(--primary-color); 
+            padding: 4px 12px; 
+            border-radius: 20px; 
+            font-size: 0.85rem; 
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .detail-title { font-size: 2rem; font-weight: 700; color: var(--text-dark); line-height: 1.3; }
+        .detail-img { 
+            width: 100%; 
+            height: 400px; 
+            object-fit: cover; 
+            border-radius: var(--radius-lg); 
+            margin-bottom: 30px; 
+        }
+        .detail-body { font-size: 1.1rem; line-height: 1.8; color: var(--text-gray); }
+        .detail-body p { margin-bottom: 1.5rem; }
+        .detail-body h3 { color: var(--text-dark); font-size: 1.4rem; margin: 2rem 0 1rem; }
+
         /* --- Responsive --- */
         @media (max-width: 900px) {
             .contact-wrapper { grid-template-columns: 1fr; }
@@ -250,6 +321,9 @@
             .hero-content h1 { font-size: 2.2rem; }
             .services-grid, .personnel-grid, .article-grid, .rights-grid { grid-template-columns: 1fr; }
             section { padding: 50px 20px; }
+            .article-detail-container { padding: 20px; }
+            .detail-img { height: 250px; }
+            .detail-title { font-size: 1.5rem; }
         }
     </style>
 </head>
@@ -258,28 +332,30 @@
     <!-- Header -->
     <header>
         <nav>
-            <a href="#" class="logo">
+            <!-- Logo กลับไปหน้าแรกเสมอ -->
+            <div class="logo" onclick="closeArticle()">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
                 <span>รพ.สต. คลองน้อย</span>
-            </a>
+            </div>
             <div class="menu-toggle" id="mobile-menu">☰</div>
             <ul class="nav-links" id="nav-links">
-                <li><a href="#home" onclick="closeMenu()">หน้าหลัก</a></li>
-                <li><a href="#services" onclick="closeMenu()">บริการ</a></li>
-                <li><a href="#rights" onclick="closeMenu()">สิทธิประโยชน์</a></li>
-                <li><a href="#personnel" onclick="closeMenu()">บุคลากร</a></li>
-                <li><a href="#contact" onclick="closeMenu()">ติดต่อเรา</a></li>
+                <!-- เมนูทุกอันจะกลับไปหน้าหลัก -->
+                <li><a href="#home" onclick="closeArticle()">หน้าหลัก</a></li>
+                <li><a href="#services" onclick="closeArticle()">บริการ</a></li>
+                <li><a href="#rights" onclick="closeArticle()">สิทธิประโยชน์</a></li>
+                <li><a href="#personnel" onclick="closeArticle()">บุคลากร</a></li>
+                <li><a href="#contact" onclick="closeArticle()">ติดต่อเรา</a></li>
             </ul>
         </nav>
     </header>
 
-    <main>
+    <!-- ส่วนหลัก (Main Content View) -->
+    <main id="main-view">
         <!-- Hero Section -->
         <section id="home">
             <div class="hero-content">
                 <h1>บริการด้านสุขภาพครบวงจร<br>ใกล้บ้าน ได้มาตรฐาน</h1>
                 <p>พร้อมดูแลสุขภาพคุณและครอบครัวด้วยทีมแพทย์และเจ้าหน้าที่ที่เชี่ยวชาญ เพื่อสุขภาพที่ดีของประชาชนในชุมชน</p>
-                <!-- เปลี่ยนข้อความปุ่ม -->
                 <a href="#contact" class="btn-hero">ติดต่อเรา</a>
                 
                 <div class="feature-list">
@@ -325,11 +401,12 @@
             <div class="container">
                 <div class="section-header">
                     <h2>ข่าวสารและบทความสุขภาพ</h2>
-                    <p>อัปเดตข้อมูลสุขภาพที่คุณควรรู้ กิจกรรมของ รพ.สต. และความรู้ด้านการป้องกันโรค</p>
+                    <p>คลิกอ่านรายละเอียดเพื่อดูข้อมูลสุขภาพที่คุณควรรู้</p>
                 </div>
 
                 <div class="article-grid">
-                    <div class="article-card">
+                    <!-- onclick="openArticle(1)" เรียกฟังก์ชัน JS -->
+                    <div class="article-card" onclick="openArticle(1)">
                         <img src="https://picsum.photos/seed/flu/400/250" alt="ข่าว" class="article-img">
                         <div class="article-content">
                             <span class="article-tag">ข่าวประชาสัมพันธ์</span>
@@ -337,7 +414,7 @@
                             <p class="article-desc">คำแนะนำจากกรมสุขภาพเกี่ยวกับการป้องกันโรคระบาดในช่วงฤดูฝน...</p>
                         </div>
                     </div>
-                    <div class="article-card">
+                    <div class="article-card" onclick="openArticle(2)">
                         <img src="https://picsum.photos/seed/food/400/250" alt="ข่าว" class="article-img">
                         <div class="article-content">
                             <span class="article-tag">สุขภาพแม่และเด็ก</span>
@@ -345,7 +422,7 @@
                             <p class="article-desc">อาหารที่ควรเลือกและหลีกเลี่ยงสำหรับลูกน้อยวัย 6 เดือนขึ้นไป</p>
                         </div>
                     </div>
-                    <div class="article-card">
+                    <div class="article-card" onclick="openArticle(3)">
                         <img src="https://picsum.photos/seed/sport/400/250" alt="ข่าว" class="article-img">
                         <div class="article-content">
                             <span class="article-tag">ความรู้ทั่วไป</span>
@@ -460,7 +537,6 @@
                         </div>
                     </div>
 
-                    <!-- Map Wrapper -->
                     <div class="map-wrapper">
                         <h3 class="map-title">📍 แผนที่เดินทาง</h3>
                         <div class="map-container">
@@ -479,6 +555,19 @@
         </section>
     </main>
 
+    <!-- ส่วนแสดงรายละเอียดบทความ (Article Detail View) -->
+    <section id="article-detail-view" class="hidden">
+        <div class="article-detail-container">
+            <div class="back-btn" onclick="closeArticle()">
+                ← กลับหน้าหลัก
+            </div>
+            
+            <div id="article-content-display">
+                <!-- เนื้อหาจะถูก JS แทนที่ที่นี่ -->
+            </div>
+        </div>
+    </section>
+
     <footer>
         <div style="max-width: 1400px; margin: 0 auto;">
             <p>&copy; 2023 โรงพยาบาลส่งเสริมสุขภาพตำบลคลองน้อย อำเภอบ้านแพรก จังหวัดพระนครศรีอยุธยา</p>
@@ -487,6 +576,98 @@
     </footer>
 
     <script>
+        // --- ข้อมูลบทความ (Database จำลอง) ---
+        const articlesData = {
+            1: {
+                tag: "ข่าวประชาสัมพันธ์",
+                title: "เตรียมพร้อมรับมือฤดูฝน ป้องกันโรคไข้หวัดนก",
+                img: "https://picsum.photos/seed/flu/800/500",
+                body: `
+                    <p>เข้าสู่ช่วงฤดูฝนแล้ว เราทุกคนควรเตรียมรับมือกับโรคที่มักระบาดในช่วงนี้ โดยเฉพาะโรคไข้หวัดนก (Avian Influenza) ซึ่งเป็นโรคที่ติดต่อจากนกสู่คน</p>
+                    <h3>การป้องกันด้วยตัวเอง</h3>
+                    <p>1. หลีกเลี่ยงการสัมผัสติดต่อกับนกหรือของเลี้ยงที่ตายหรือแปลกปลอม<br>2. รับประทานไก่และไข่ที่ปรุงสุกเท่านั้น<br>3. ล้างมือบ่อยๆ ด้วยสบู่หรือเจลล้างมือ<br>4. สวมหน้ากากหากต้องสัมผัสสัตว์ปีกหรือล้างอุปกรณ์ที่สกปรก</p>
+                    <h3>ติดตามความรู้เพิ่มเติม</h3>
+                    <p>หากคุณมีอาการไข้ ไอ หอบเหนื่อย หรือปวดกล้ามเนื้อ และมีประวัติการสัมผัสนก ให้รีบเข้ารับการตรวจรักษาที่โรงพยาบาลทันที และแจ้งประวัติแก่แพทย์โดยตรง</p>
+                `
+            },
+            2: {
+                tag: "สุขภาพแม่และเด็ก",
+                title: "การเลือกอาหารสำหรับทารกเริ่มอาหารเสริม",
+                img: "https://picsum.photos/seed/food/800/500",
+                body: `
+                    <p>เมื่อทารกอายุครบ 6 เดือน นมแม่อย่างเดียวจะไม่เพียงพอต่อความต้องการสารอาหารของลูกน้อยแล้ว การเริ่มให้อาหารเสริมจึงมีความสำคัญอย่างยิ่ง</p>
+                    <h3>เริ่มจากอะไรดี?</h3>
+                    <p>ควรเริ่มจากอาหารที่มีเนื้อสัมผัสนิ่ม มีลักษณะข้นๆ ง่ายต่อการกลืน เช่น อาหารบด กะทิหรือปังแช่นม ให้ทาเพียงมื้อละ 1 อย่างก่อน เพื่อให้ลูกคุยชินกับรสชาติ</p>
+                    <h3>อาหารที่ควรหลีกเลี่ยง</h3>
+                    <p>อาหารที่แข็ง เช่น ผักที่ไม่สุก ผลไม้ที่มีเมล็ด นมวัว อาหารที่เค็มหรือหวานจัด และอาหารแปรรูป ที่อาจส่งผลกระทบต่อระบบย่อยอาหารของทารก</p>
+                `
+            },
+            3: {
+                tag: "ความรู้ทั่วไป",
+                title: "5 นาทีบริหารกาย ห่างไกลโรคเบาหวาน",
+                img: "https://picsum.photos/seed/sport/800/500",
+                body: `
+                    <p>โรคเบาหวานเป็นปัญหาสุขภาพที่สำคัญ แต่เราสามารถป้องกันและคุมโรคได้ง่ายๆ ด้วยการเปลี่ยนพฤติกรรมเล็กๆ เช่น การออกกำลังกายเพียงวันละ 5 นาที</p>
+                    <h3>วิธีออกกำลังกายง่ายๆ</h3>
+                    <p>1. เดินเร่งหรือจ๊อกกิ้ง บ้านหรือที่ทำงาน<br>2. กายบริหารแขนขาง่ายๆ ขณะดูทีวี<br>3. ยืดเหยียดกล้ามเนื้อก่อนนอนและตื่นนอน<br>4. ว่ายน้ำหรือปั่นจักรยานวันละสั้นๆ</p>
+                    <h3>สรุป</h3>
+                    <p>การออกกำลังกายอย่างสม่ำเสมอจะช่วยเพิ่มการทำงานของอินซูลิน ลดระดับน้ำตาลในเลือด และทำให้ร่างกายแข็งแรง</p>
+                `
+            }
+        };
+
+        // --- ฟังก์ชันจัดการหน้าจอ (SPA Logic) ---
+
+        // เปิดหน้าบทความ
+        function openArticle(id) {
+            const article = articlesData[id];
+            if (!article) return;
+
+            // นำข้อมูลไปใส่ในหน้า Detail View
+            const container = document.getElementById('article-content-display');
+            container.innerHTML = `
+                <div class="detail-header">
+                    <span class="detail-tag">${article.tag}</span>
+                    <h1 class="detail-title">${article.title}</h1>
+                </div>
+                <img src="${article.img}" alt="${article.title}" class="detail-img">
+                <div class="detail-body">
+                    ${article.body}
+                </div>
+            `;
+
+            // ซ่อนหน้าหลัก / แสดงหน้าบทความ
+            document.getElementById('main-view').classList.add('hidden');
+            document.getElementById('article-detail-view').classList.remove('hidden');
+            document.getElementById('article-detail-view').classList.add('block');
+            
+            // เลื่อนขึ้นสุด
+            window.scrollTo(0, 0);
+
+            // ปิดเมนูมือถือ
+            if(window.innerWidth <= 768) {
+                document.getElementById('nav-links').classList.remove('active');
+                document.getElementById('mobile-menu').textContent = '☰';
+            }
+        }
+
+        // ปิดหน้าบทความ (กลับหน้าหลัก)
+        function closeArticle() {
+            // ซ่อนหน้าบทความ / แสดงหน้าหลัก
+            document.getElementById('article-detail-view').classList.add('hidden');
+            document.getElementById('main-view').classList.remove('hidden');
+            
+            // เลื่อนขึ้นสุด
+            window.scrollTo(0, 0);
+
+            // ปิดเมนูมือถือ
+            if(window.innerWidth <= 768) {
+                document.getElementById('nav-links').classList.remove('active');
+                document.getElementById('mobile-menu').textContent = '☰';
+            }
+        }
+
+        // --- เมนูมือถือ ---
         document.getElementById('mobile-menu').addEventListener('click', function() {
             document.getElementById('nav-links').classList.toggle('active');
             const btn = document.getElementById('mobile-menu');
