@@ -21,7 +21,7 @@
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
             --radius-lg: 0.75rem;
             --radius-full: 9999px;
-            --max-width: 1300px; /* ปรับจาก 1400 ให้ดูสมดุล */
+            --max-width: 1300px;
             --header-height: 80px;
         }
 
@@ -29,7 +29,6 @@
         
         html { 
             scroll-behavior: smooth;
-            /* สำคัญมาก: ป้องกันเนื้อหาโดนเมนูทับเวลาคลิกเลื่อนหน้า */
             scroll-padding-top: 100px; 
         }
 
@@ -74,7 +73,7 @@
 
         .nav-links {
             display: flex;
-            gap: 35px; /* ลดระยะห่างเมนูให้แน่น */
+            gap: 35px;
             list-style: none;
         }
 
@@ -87,38 +86,15 @@
         }
 
         .nav-links a:hover { color: var(--primary-color); }
-
         .menu-toggle { display: none; font-size: 2rem; cursor: pointer; }
 
         /* --- Layout Containers --- */
-        section { 
-            padding: 60px 20px; /* ลดระยะห่างด้านบน-ล่างจาก 80 -> 60 เพื่อให้ดูเต็มจอมากขึ้น */
-        }
-        
-        .container { 
-            max-width: var(--max-width); 
-            margin: 0 auto; 
-            width: 100%; 
-        }
+        section { padding: 60px 20px; }
+        .container { max-width: var(--max-width); margin: 0 auto; width: 100%; }
 
-        .section-header {
-            text-align: center;
-            margin-bottom: 2.5rem; /* ลดระยะห่างหัวข้อกับเนื้อหา */
-        }
-
-        .section-header h2 {
-            font-size: 2.2rem; /* ปรับขนาดตัวอักษรให้พอดี */
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            color: var(--text-dark);
-        }
-
-        .section-header p {
-            color: var(--text-gray);
-            font-size: 1rem; /* ปรับขนาด */
-            max-width: 700px;
-            margin: 0 auto;
-        }
+        .section-header { text-align: center; margin-bottom: 2.5rem; }
+        .section-header h2 { font-size: 2.2rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-dark); }
+        .section-header p { color: var(--text-gray); font-size: 1rem; max-width: 700px; margin: 0 auto; }
 
         /* --- Hero Section --- */
         #home {
@@ -126,25 +102,13 @@
             background-size: cover;
             background-position: center;
             color: var(--white);
-            padding: 100px 20px 80px; /* ลดระยะด้านล่าง */
+            padding: 100px 20px 80px;
             text-align: center;
         }
 
         .hero-content { max-width: 900px; margin: 0 auto; }
-
-        .hero-content h1 {
-            font-size: clamp(2.2rem, 5vw, 4rem);
-            font-weight: 800;
-            margin-bottom: 1.2rem;
-            line-height: 1.2;
-        }
-
-        .hero-content p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.95;
-            font-weight: 300;
-        }
+        .hero-content h1 { font-size: clamp(2.2rem, 5vw, 4rem); font-weight: 800; margin-bottom: 1.2rem; line-height: 1.2; }
+        .hero-content p { font-size: 1.2rem; margin-bottom: 2rem; opacity: 0.95; font-weight: 300; }
 
         .btn-hero {
             display: inline-block;
@@ -161,14 +125,7 @@
         
         .btn-hero:hover { transform: translateY(-3px); }
 
-        .feature-list {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px; /* ลดระยะห่าง */
-            margin-top: 2.5rem;
-        }
-
+        .feature-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 2.5rem; }
         .feature-item {
             background: rgba(255,255,255,0.2);
             padding: 6px 18px;
@@ -179,15 +136,10 @@
         }
 
         /* --- Services Grid --- */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* ลดค่า minwidth เพื่อให้แน่นขึ้น */
-            gap: 24px; /* ลดช่องว่างระหว่างการ์ด */
-        }
-
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
         .service-card {
             background: var(--white);
-            padding: 2rem; /* ลด padding */
+            padding: 2rem;
             border-radius: var(--radius-lg);
             box-shadow: var(--shadow-md);
             transition: transform 0.3s, box-shadow 0.3s;
@@ -196,11 +148,9 @@
             display: flex;
             flex-direction: column;
         }
-
         .service-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
         .service-card h3 { font-size: 1.25rem; margin-bottom: 0.8rem; color: var(--text-dark); }
-        .service-card p { color: var(--text-gray); font-size: 0.95rem; margin-bottom: 1rem; flex-grow: 1; }
-        .service-link { color: var(--primary-color); font-weight: 600; text-decoration: none; font-size: 0.9rem; }
+        .service-card p { color: var(--text-gray); font-size: 0.95rem; margin-bottom: 0; flex-grow: 1; } /* เอา margin-bottom ของ p ออก เพราะไม่มี link แล้ว */
 
         /* --- Articles --- */
         #articles { background-color: var(--gray-light); }
@@ -214,15 +164,10 @@
         .article-desc { color:#666; font-size:0.9rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
         /* --- Patient Rights --- */
-        .rights-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* ปรับค่าให้เต็มจอดีขึ้น */
-            gap: 20px;
-        }
-
+        .rights-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
         .right-card {
             background: var(--white);
-            padding: 1.5rem; /* ลด padding */
+            padding: 1.5rem;
             border-radius: var(--radius-lg);
             border: 1px solid #e5e7eb;
             display: flex;
@@ -230,11 +175,9 @@
             gap: 15px;
             transition: all 0.3s;
         }
-
         .right-card:hover { border-color: var(--primary-color); box-shadow: var(--shadow-md); }
-        
         .right-icon {
-            width: 50px; height: 50px; /* ลดขนาดไอคอนเพื่อพอดี */
+            width: 50px; height: 50px;
             background-color: var(--primary-bg);
             color: var(--primary-color);
             border-radius: 50%;
@@ -242,7 +185,6 @@
             font-size: 1.3rem;
             flex-shrink: 0;
         }
-
         .right-info h4 { font-size: 1.05rem; margin-bottom: 0.3rem; color: var(--text-dark); }
         .right-info p { color: var(--text-gray); font-size: 0.9rem; line-height: 1.5; }
 
@@ -259,7 +201,7 @@
         #contact { background-color: var(--white); }
         .contact-wrapper {
             display: grid;
-            grid-template-columns: 1fr 1.5fr;
+            grid-template-columns: 1fr 1fr;
             gap: 40px;
             background: var(--white);
             border-radius: var(--radius-lg);
@@ -275,7 +217,10 @@
 
         .hours-simple { font-size: 1.25rem; color: var(--text-dark); font-weight: 600; }
         .hours-sub { font-size: 0.95rem; color: var(--text-gray); margin-top: 5px; }
-        .map-container { width: 100%; height: 100%; min-height: 400px; }
+
+        .map-wrapper { padding: 2.5rem; background-color: #fff; display: flex; flex-direction: column; }
+        .map-title { font-size: 1.1rem; color: var(--text-dark); font-weight: 700; margin-bottom: 1.2rem; border-bottom: 2px solid #E5E7EB; padding-bottom: 10px; display: inline-block; }
+        .map-container { width: 100%; height: 100%; min-height: 320px; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-md); border: 1px solid #e5e7eb; }
         .map-container iframe { width: 100%; height: 100%; border: 0; }
 
         /* --- Footer --- */
@@ -334,6 +279,7 @@
             <div class="hero-content">
                 <h1>บริการด้านสุขภาพครบวงจร<br>ใกล้บ้าน ได้มาตรฐาน</h1>
                 <p>พร้อมดูแลสุขภาพคุณและครอบครัวด้วยทีมแพทย์และเจ้าหน้าที่ที่เชี่ยวชาญ เพื่อสุขภาพที่ดีของประชาชนในชุมชน</p>
+                <!-- เปลี่ยนข้อความปุ่ม -->
                 <a href="#contact" class="btn-hero">ติดต่อเรา</a>
                 
                 <div class="feature-list">
@@ -357,22 +303,18 @@
                     <div class="service-card">
                         <h3>💊 บริการจ่ายยา</h3>
                         <p>มียาจำเป็นหลัก (E-Demand) ครบถ้วนตามบัญชียาของกรมสุขภาพ พร้อมเภสัชกรให้คำปรึกษาเรื่องการใช้ยาได้อย่างถูกต้องและปลอดภัย</p>
-                        <a href="#" class="service-link">ดูรายชื่อยาที่มีให้บริการ →</a>
                     </div>
                     <div class="service-card">
                         <h3>👶 คลินิกพัฒนาเด็ก</h3>
                         <p>ติดตามพัฒนาการเด็กตั้งแต่แรกเกิดถึง 6 ปี การให้วัคซีนตามกำหนดของกระทรวงสาธารณสุข และการป้องกันโรคทั่วไปในเด็ก</p>
-                        <a href="#" class="service-link">ดูตารางวัคซีน →</a>
                     </div>
                     <div class="service-card">
                         <h3>🤰 ดูแลมารดาและทารก</h3>
                         <p>คลินิกก่อนคลอด ตรวจสอบสุขภาพแม่และทารกในครรภ์ การให้คำแนะนำการดูแลตัวเอง การให้นมแม่ และติดตามหลังคลอดที่บ้าน</p>
-                        <a href="#" class="service-link">อ่านเพิ่มเติม →</a>
                     </div>
                     <div class="service-card">
                         <h3>🚑 ฉุกเฉินเบื้องต้น</h3>
                         <p>ให้การปฐมพยาบาลเบื้องต้นสำหรับผู้ป่วยที่มีอาการฉุกเฉิน การเจาะเลือด และการจัดส่งต่อผู้ป่วยไปยังโรงพยาบาลชั้นนำด้วยรถพยาบาล</p>
-                        <a href="#" class="service-link">ขั้นตอนปฐมพยาบาล →</a>
                     </div>
                 </div>
             </div>
@@ -511,7 +453,6 @@
                             <div class="info-item"><span>📧</span> contact@klongnoi-hospital.go.th</div>
                         </div>
 
-                        <!-- เวลาทำการแบบลดรูปแบบลง -->
                         <div class="info-group">
                             <h3>🕒 วันและเวลาทำการ</h3>
                             <div class="hours-simple">จันทร์ - ศุกร์</div>
@@ -519,15 +460,19 @@
                         </div>
                     </div>
 
-                    <div class="map-container">
-                        <iframe 
-                            src="https://maps.google.com/maps?q=14.652600310286168,100.55073035242165&t=&z=17&ie=UTF8&iwloc=&output=embed" 
-                            width="100%" 
-                            height="100%" 
-                            style="border:0;" 
-                            allowfullscreen="" 
-                            loading="lazy">
-                        </iframe>
+                    <!-- Map Wrapper -->
+                    <div class="map-wrapper">
+                        <h3 class="map-title">📍 แผนที่เดินทาง</h3>
+                        <div class="map-container">
+                            <iframe 
+                                src="https://maps.google.com/maps?q=14.652600310286168,100.55073035242165&t=&z=17&ie=UTF8&iwloc=&output=embed" 
+                                width="100%" 
+                                height="100%" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy">
+                            </iframe>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -557,4 +502,3 @@
     </script>
 </body>
 </html>
-
